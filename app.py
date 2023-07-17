@@ -1,11 +1,25 @@
-from flask import Flask
+from flask import Flask, render_template, request, redirect
+import yaml
+from yaml import SafeLoader, FullLoader
 
 app = Flask(__name__)
 
 
-@app.route('/')
-def hello_world():  # put application's code here
-    return 'THis commit is just to test if my commits are being properly signed'
+def read_one_block_of_yaml_data(filename):
+    with open(f'{filename}', 'r') as f:
+        output = list(yaml.safe_load_all(f))
+    return output
+
+
+@app.route('/rules', methods=['GET', 'POST'])
+def index():
+    acl = (read_one_block_of_yaml_data('configuration.yml')[0]["access_control"]["rules"])
+    return render_template('rules.html', acl=acl)
+
+
+@app.route('/other_config', methods=['GET', 'POST'])
+def other_config():
+    return render_template('other_config.html')
 
 
 if __name__ == '__main__':
