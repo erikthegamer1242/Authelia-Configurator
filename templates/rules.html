@@ -12,6 +12,7 @@
             margin: 0;
             padding: 0;
         }
+        .clickable { cursor: pointer; }
     </style>
 </head>
 
@@ -28,17 +29,18 @@
         </ul>
       </div>
       <div class="card-body">
-        <table class="table">
+        <table class="table table-hover">
           <thead>
             <tr>
-              <th>Domain</th>
+              <th style="width:50%">Domain</th>
               <th>Subject</th>
               <th>Policy</th>
             </tr>
            </thead>
            <tbody>
                {% for rule in acl %}
-                    <tr>
+                    <tr class="clickable "
+		   onclick="window.location='/edit_rule/{{loop.index - 1}}'">
                        <td>
                            {% if "domain" in rule %}
                                <ol>
@@ -76,6 +78,11 @@
         </table>
       </div>
     </div>
+{#jQuery(document).ready(function($) {#}
+{#    $(".clickable-row").click(function() {#}
+{#        window.location = $(this).data("href");#}
+{#    });#}
+{#});#}
 
 </body>
 
