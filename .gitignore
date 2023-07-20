@@ -2,3 +2,7 @@
 venv/
 configuration.yml
 configuration.yaml
+test.py
+testPOST.py
+templates/test.html
+__pycache__/
